@@ -42,7 +42,7 @@ const Login = () => {
   return (
     <div className="auth-container">
       <form className="auth-form">
-        <h2>Login</h2>
+        <h2>JUDO Login</h2>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
           <input

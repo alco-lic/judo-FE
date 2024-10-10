@@ -1,0 +1,65 @@
+.drink-detail {
+    display: flex;
+    flex-direction: column; /* Change to column layout */
+    align-items: center; /* Center items */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.drink-detail__image-container {
+    margin-bottom: 20px; /* Space below the image */
+}
+
+.drink-detail__image {
+    width: 100%; /* Full width for responsive design */
+    max-width: 300px; /* Limit max width of the image */
+    border-radius: 8px;
+}
+
+.drink-detail__info {
+    text-align: center; /* Center align text */
+}
+
+.drink-detail__name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 10px 0; /* Space around name */
+}
+
+.drink-detail__price {
+    font-size: 1.5rem;
+    color: #0070f3; /* Blue color for price */
+    margin: 5px 0; /* Space around price */
+}
+
+.drink-detail__description,
+.drink-detail__detailed-description,
+.drink-detail__taste-profile {
+    margin: 8px 0;
+}
+
+.drink-detail__ratings {
+    margin: 10px 0; /* Space around ratings */
+}
+
+.drink-detail__star {
+    color: #0070f3; /* Blue color for stars */
+    font-size: 1.5rem; /* Size for stars */
+}
+
+.drink-detail__add-to-cart {
+    background-color: #0070f3; /* Button color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.drink-detail__add-to-cart:hover {
+    background-color: #005bb5; /* Darker shade on hover */
+}

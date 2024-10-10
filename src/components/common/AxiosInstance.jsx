@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
 
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
@@ -56,12 +54,14 @@ axiosInstance.interceptors.response.use(
                     // 만약 refresh token도 만료되었으면 로그인 페이지로 리다이렉트
                     localStorage.removeItem('accessToken');
                     localStorage.removeItem('refreshToken');
+                    alert("다시 로그인해주세요")
                     window.location.href = '/login';
                 }
             } else {
                 // refresh token이 없으면 로그인 페이지로 리다이렉트
                 localStorage.removeItem('accessToken');
                 localStorage.removeItem('refreshToken');
+                alert("다시 로그인해주세요")
                 window.location.href = '/login';
             }
         }

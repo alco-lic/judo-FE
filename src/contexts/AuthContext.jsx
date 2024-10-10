@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (response.status === 200) {
-        console.log('Logout successful');
+        // console.log('Logout successful');
         setIsAuthenticated(false);
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');

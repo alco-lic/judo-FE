@@ -9,7 +9,12 @@ const ProtectedRoute = ({ element: Component, ...rest }) => {
     return <div>Loading...</div>;
   }
 
-  return isAuthenticated ? Component : <Navigate to="/login" />;
+  if (!isAuthenticated) {
+    alert("로그인이 필요합니다."); // Alert message for unauthenticated users
+    return <Navigate to="/login" />;
+  }
+
+  return Component; // Return the protected component if authenticated
 };
 
 export default ProtectedRoute;
