@@ -13,14 +13,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@portone/browser-sdk": "^0.0.10",
     "axios": "^1.7.7",
     "date-fns": "^3.6.0",
     "date-fns-tz": "^3.1.3",
     "env": "^0.0.2",
     "react": "^18.3.1",
+    "react-daum-postcode": "^3.1.3",
     "react-dom": "^18.3.1",
+    "react-google-autocomplete": "^2.7.3",
     "react-router-dom": "^6.26.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "styled-components": "^6.1.13"
   },
   "browserslist": {
     "production": [

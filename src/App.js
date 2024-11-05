@@ -6,6 +6,8 @@ import SignUp from './components/login/SignUp';
 import NavBar from './components/common/NavBar';
 import JudoApp from './components/JudoApp'; 
 import DrinkDetail from './components/drinkDetail/DrinkDetail';
+import Cart from './components/cart/Cart';
+import Payment from './components/payment/Payment';
 
 function App() {
     return (
@@ -20,12 +22,13 @@ function App() {
                 <Route path="/" element={<JudoApp />} />
 
                 {/* Protected routes */}
-                <Route
-                    path="/protected"
-                    element={<ProtectedRoute />}
-                />
+                <Route path="/protected" element={<ProtectedRoute />} />
                 
                 <Route path="/drink/:id" element={<DrinkDetail />} />
+
+                {/* Cart route, protected */}
+                <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>}/>
+                <Route path="/payment" element={<ProtectedRoute><Payment /> </ProtectedRoute>}/>
             </Routes>
         </Router>
     );

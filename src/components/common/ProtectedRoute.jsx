@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 
-const ProtectedRoute = ({ element: Component, ...rest }) => {
+const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useContext(AuthContext);
 
   if (isLoading) {
@@ -10,11 +10,12 @@ const ProtectedRoute = ({ element: Component, ...rest }) => {
   }
 
   if (!isAuthenticated) {
-    alert("로그인이 필요합니다."); // Alert message for unauthenticated users
+    alert("로그인이 필요합니다."); // 로그인 필요 알림
     return <Navigate to="/login" />;
   }
 
-  return Component; // Return the protected component if authenticated
+  // 인증된 경우 자식 컴포넌트 렌더링
+  return children;
 };
 
 export default ProtectedRoute;

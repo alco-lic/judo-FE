@@ -14,6 +14,7 @@ const NavBar = () => {
           {isAuthenticated ? (
             <>
               <Link to="/" className="navbar-link" onClick={logout}>Logout</Link>
+              <Link to="/cart" className="navbar-link">Cart</Link>
             </>
           ) : (
             <>
