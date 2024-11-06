@@ -7,33 +7,29 @@ import DaumPost from './DaumPost';
 
 const Payment = () => {
     const location = useLocation();
-    const { cartItems, totalAmount } = location.state || { cartItems: [], totalAmount: 0 }; // 디폴트 값 설정
-    const [address, setAddress] = useState({ address: '', zonecode: '' }); // 객체 형태로 상태 설정
-    const [detailedAddress, setDetailedAddress] = useState(''); // 상세 주소 상태 추가
+    const { cartItems, totalAmount } = location.state || { cartItems: [], totalAmount: 0 };
+    const [address, setAddress] = useState({ address: '', zonecode: '' });
+    const [detailedAddress, setDetailedAddress] = useState('');
     const [popup, setPopup] = useState(false);
-
-    // address 상태가 바뀔 때마다 로그 출력
-    useEffect(() => {
-    }, [address]); // address가 변경될 때마다 실행
 
     const handlePayment = () => {
         const paymentData = {
             storeId: process.env.REACT_APP_TOSSPAYMENTS_STOREID,
             paymentId: `payment-${crypto.randomUUID()}`,
             orderName: "장바구니 상품",
-            totalAmount: parseFloat(totalAmount), // 숫자로 변환
+            totalAmount: parseFloat(totalAmount),
             currency: "CURRENCY_KRW",
             channelKey: process.env.REACT_APP_TOSSPAYMENTS_CHANNELKEY,
-            payMethod: "CARD", // 결제 수단
-            address: address.address + (detailedAddress ? `, ${detailedAddress}` : ''), // 상세 주소 추가
+            payMethod: "CARD",
+            address: address.address + (detailedAddress ? `, ${detailedAddress}` : ''),
         };
 
-        PortOne.requestPayment(paymentData) // SDK 결제 요청
+        PortOne.requestPayment(paymentData)
             .then(response => {
-                savePaymentToBackend(response); // 결제 성공 시 백엔드에 결제 데이터 저장
+                savePaymentToBackend(response);
             })
             .catch(error => {
-                // 결제 실패 처리
+                console.error("결제 실패:", error);
             });
     };
 
@@ -46,7 +42,7 @@ const Payment = () => {
             items: cartItems.map(item => ({
                 id: item.id,
                 drinkId: item.drinkId,
-                quantity: 1, // 기본값으로 1 설정
+                quantity: 1,
                 name: item.name,
                 price: item.price
             })), 
@@ -55,27 +51,24 @@ const Payment = () => {
 
         try {
             const response = await axiosInstance.post('/api/orders/create', orderData);
-            
-            // 추가적인 성공 처리
+            console.log("백엔드에 결제 내역 저장 성공:", response);
         } catch (error) {
             console.error("백엔드 저장 실패:", error);
-            alert("결제에 실패했습니다.", error)
+            alert("결제에 실패했습니다.", error);
             window.location.reload();
-            
         }
     };
 
     const handleComplete = () => {
-        setPopup(!popup); // 팝업창 상태 변경
+        setPopup(!popup);
     };
 
-    // 주소 입력 필드 클릭 시 검색 이벤트 호출
     const handleAddressInputFocus = () => {
-        setPopup(true); // 팝업창 열기
+        setPopup(true);
     };
 
-    // 주소가 입력된 경우에만 결제 버튼 활성화
-    const isPaymentButtonDisabled = !address.address.trim();
+    // 주소가 입력된 경우와 장바구니에 상품이 있는 경우에만 결제 버튼 활성화
+    const isPaymentButtonDisabled = !address.address.trim() || totalAmount === 0;
 
     return (
         <div className="payment-container">
@@ -84,16 +77,16 @@ const Payment = () => {
                 <label className="address-label">주소:</label>
                 <input
                     type="text"
-                    value={address.address} // 주소 상태에서 주소만 사용
-                    onFocus={handleAddressInputFocus} // 입력창 클릭 시 주소 검색
-                    onChange={(e) => setAddress({ ...address, address: e.target.value })} // 주소 업데이트
+                    value={address.address}
+                    onFocus={handleAddressInputFocus}
+                    onChange={(e) => setAddress({ ...address, address: e.target.value })}
                     required
-                    className="address-input-field" // 클래스 추가
+                    className="address-input-field"
                 />
                 <button onClick={handleComplete} className="address-search-button">주소 검색</button>
             </div>
             <div className="zonecode-display">
-                <span className="zonecode-text">우편번호: {address.zonecode}</span> {/* 우편번호 표시 */}
+                <span className="zonecode-text">우편번호: {address.zonecode}</span>
             </div>
             <div className="detailed-address-input">
                 <label className="detailed-address-label">상세 주소:</label>
@@ -102,10 +95,10 @@ const Payment = () => {
                     value={detailedAddress}
                     onChange={(e) => setDetailedAddress(e.target.value)}
                     placeholder="상세 주소를 입력하세요"
-                    className="detailed-address-input-field" // 클래스 추가
+                    className="detailed-address-input-field"
                 />
             </div>
-            <hr className="divider" /> {/* 가로선 추가 */}
+            <hr className="divider" />
             <h3 className="order-item-title">주문 상품</h3>
             <div className="cart-items">
                 {cartItems.map(item => (
@@ -118,11 +111,11 @@ const Payment = () => {
             <button 
                 onClick={handlePayment} 
                 className="payment-button"
-                disabled={isPaymentButtonDisabled} // 주소가 없으면 비활성화
+                disabled={isPaymentButtonDisabled} // 주소가 없거나 장바구니가 비어있으면 비활성화
             >
                 결제하기
             </button>
-            {popup && <DaumPost setAddress={setAddress} handleComplete={handleComplete}/>}
+            {popup && <DaumPost setAddress={setAddress} handleComplete={handleComplete} />}
         </div>
     );
 };

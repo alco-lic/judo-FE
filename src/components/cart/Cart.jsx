@@ -28,12 +28,16 @@ const Cart = () => {
     parseFloat(cartItems.reduce((total, item) => total + item.price, 0)).toFixed(2);
 
 const handlePayment = () => {
-    navigate('/payment', {
-        state: {
-        cartItems: cartItems,
-        totalAmount: calculateTotal(),
-        },
-    });
+    if(cartItems.length === 0){
+        alert("장바구니에 상품이 존재하지 않습니다.")
+    } else {
+        navigate('/payment', {
+            state: {
+            cartItems: cartItems,
+            totalAmount: calculateTotal(),
+            },
+        });
+    }
 };
       
 

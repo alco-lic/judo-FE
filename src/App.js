@@ -8,6 +8,7 @@ import JudoApp from './components/JudoApp';
 import DrinkDetail from './components/drinkDetail/DrinkDetail';
 import Cart from './components/cart/Cart';
 import Payment from './components/payment/Payment';
+import PaymentHistory from './components/payment/PaymentHistory';
 
 function App() {
     return (
@@ -29,6 +30,8 @@ function App() {
                 {/* Cart route, protected */}
                 <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>}/>
                 <Route path="/payment" element={<ProtectedRoute><Payment /> </ProtectedRoute>}/>
+                <Route path="/payment/history" element={<ProtectedRoute><PaymentHistory /> </ProtectedRoute>}/>
+                
             </Routes>
         </Router>
     );
