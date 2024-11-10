@@ -38,7 +38,7 @@ const JudoApp = () => {
             const fetchFavorites = async () => {
                 try {
                     const response = await axiosInstance.get('/api/wishlist/all');
-                    const favoriteIds = response.data.map((item) => item.drinkId);
+                    const favoriteIds = response.data.map((item) => item.drink.id);
                     setFavorites(favoriteIds);
                 } catch (error) {
                     console.error("Error fetching favorites:", error);
@@ -70,14 +70,19 @@ const JudoApp = () => {
     const toggleFavorite = async (drinkId) => {
         const isAlreadyFavorite = favorites.includes(drinkId);
 
-        // API 요청을 보내서 찜하기 상태 저장
         try {
+            // 찜하기 상태 변경 API 요청
             await axiosInstance.post('/api/wishlist/new', {
                 drinkId,
                 isFavorite: !isAlreadyFavorite
             });
-            // 변경 사항 반영을 위해 화면 새로고침
-            window.location.reload();
+
+            // 상태 즉시 업데이트
+            setFavorites((prevFavorites) => 
+                isAlreadyFavorite
+                    ? prevFavorites.filter((id) => id !== drinkId) // 이미 찜한 경우 제거
+                    : [...prevFavorites, drinkId] // 새로 찜한 경우 추가
+            );
         } catch (error) {
             console.error("Error updating favorite:", error);
         }
@@ -87,15 +92,17 @@ const JudoApp = () => {
     const toggleCart = async (drinkId) => {
         const isAlreadyInCart = cartItems.includes(drinkId);
 
-        // API 요청을 보내서 장바구니 상태 저장
         try {
             await axiosInstance.post('/api/cart/new', {
                 drinkId,
                 isInCart: !isAlreadyInCart
             });
             alert("장바구니에 추가되었습니다.");
-            // 변경 사항 반영을 위해 화면 새로고침
-            window.location.reload();
+            setCartItems((prevCartItems) => 
+                isAlreadyInCart
+                    ? prevCartItems.filter((id) => id !== drinkId) // 이미 장바구니에 있으면 제거
+                    : [...prevCartItems, drinkId] // 새로 추가하는 경우
+            );
         } catch (error) {
             console.error("Error updating cart:", error);
         }
@@ -103,12 +110,11 @@ const JudoApp = () => {
 
     // 세부 정보 화면으로 이동
     const goToDetail = (drinkId) => {
-        navigate(`/drink/${drinkId}`); // Navigate to the drink detail page
+        navigate(`/drink/${drinkId}`);
     };
 
     return (
         <div className="judo-app">
-            {/* 주류 리스트 */}
             <div className="drink-list">
                 {drinks.map((drink) => (
                     <div key={drink.id} className="drink-card">

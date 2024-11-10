@@ -9,6 +9,7 @@ import DrinkDetail from './components/drinkDetail/DrinkDetail';
 import Cart from './components/cart/Cart';
 import Payment from './components/payment/Payment';
 import PaymentHistory from './components/payment/PaymentHistory';
+import Wishlist from './components/wishlist/Wishlist';
 
 function App() {
     return (
@@ -21,9 +22,6 @@ function App() {
 
                 {/* Main page accessible without signup */}
                 <Route path="/" element={<JudoApp />} />
-
-                {/* Protected routes */}
-                <Route path="/protected" element={<ProtectedRoute />} />
                 
                 <Route path="/drink/:id" element={<DrinkDetail />} />
 
@@ -31,6 +29,9 @@ function App() {
                 <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>}/>
                 <Route path="/payment" element={<ProtectedRoute><Payment /> </ProtectedRoute>}/>
                 <Route path="/payment/history" element={<ProtectedRoute><PaymentHistory /> </ProtectedRoute>}/>
+
+                <Route path="/wishlist" element={<ProtectedRoute><Wishlist /> </ProtectedRoute>}/>
+                
                 
             </Routes>
         </Router>

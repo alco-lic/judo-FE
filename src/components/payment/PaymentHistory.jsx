@@ -11,7 +11,7 @@ const PaymentHistory = () => {
         const fetchPaymentHistory = async () => {
             try {
                 const response = await axiosInstance.get('/api/orders/history');
-                console.log(response.data.data)
+                // console.log(response.data.data)
                 setHistoryItems(response.data.data);
             } catch (error) {
                 setError("결제 내역을 불러오는 중 오류가 발생했습니다.");

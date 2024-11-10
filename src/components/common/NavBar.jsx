@@ -22,6 +22,7 @@ const NavBar = () => {
         <div className="navbar-menu">
           {isAuthenticated ? (
             <>
+              <Link to="/wishlist" className="navbar-link">Wishlist</Link>
               <Link to="/cart" className="navbar-link">Cart</Link>
               <button onClick={toggleDrawer} className="navbar-drawer-button">☰</button>
               <div className={`drawer-menu ${isDrawerOpen ? 'open' : ''}`}>
