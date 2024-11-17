@@ -3,12 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axiosInstance from './common/AxiosInstance';
 import { AuthContext } from '../contexts/AuthContext'; // Import AuthContext
 import './JudoApp.css';
-
-// 찜하기와 장바구니 아이콘 이미지 경로
-import favoriteIcon from '../assets/bookmark_clear.png'; // 찜하기 아이콘
-import favoriteFilledIcon from '../assets/bookmark_blue.png'; // 찜하기 활성화 아이콘
-import cartIcon from '../assets/cart.png'; // 장바구니 아이콘
-import testImage from '../assets/test_image.png'; // 테스트 이미지
+import DrinkCard from './drink/DrinkCard';
+import RecommendedDrinks from './drink/RecommendedDrinks'; // 추천 상품 컴포넌트
 
 const JudoApp = () => {
     const [drinks, setDrinks] = useState([]);
@@ -18,7 +14,6 @@ const JudoApp = () => {
     const { isAuthenticated } = useContext(AuthContext); // Get authentication status from context
     const navigate = useNavigate(); 
 
-    // API 요청으로 주류 리스트 가져오기
     useEffect(() => {
         const fetchDrinks = async () => {
             try {
@@ -47,7 +42,7 @@ const JudoApp = () => {
 
             fetchFavorites();
         }
-    }, [isAuthenticated]); 
+    }, [isAuthenticated]);
 
     // 장바구니에 담긴 상품 불러오기 (로그인 시만 수행)
     useEffect(() => {
@@ -71,17 +66,15 @@ const JudoApp = () => {
         const isAlreadyFavorite = favorites.includes(drinkId);
 
         try {
-            // 찜하기 상태 변경 API 요청
             await axiosInstance.post('/api/wishlist/new', {
                 drinkId,
                 isFavorite: !isAlreadyFavorite
             });
 
-            // 상태 즉시 업데이트
             setFavorites((prevFavorites) => 
                 isAlreadyFavorite
-                    ? prevFavorites.filter((id) => id !== drinkId) // 이미 찜한 경우 제거
-                    : [...prevFavorites, drinkId] // 새로 찜한 경우 추가
+                    ? prevFavorites.filter((id) => id !== drinkId)
+                    : [...prevFavorites, drinkId]
             );
         } catch (error) {
             console.error("Error updating favorite:", error);
@@ -97,11 +90,11 @@ const JudoApp = () => {
                 drinkId,
                 isInCart: !isAlreadyInCart
             });
-            alert("장바구니에 추가되었습니다.");
+
             setCartItems((prevCartItems) => 
                 isAlreadyInCart
-                    ? prevCartItems.filter((id) => id !== drinkId) // 이미 장바구니에 있으면 제거
-                    : [...prevCartItems, drinkId] // 새로 추가하는 경우
+                    ? prevCartItems.filter((id) => id !== drinkId)
+                    : [...prevCartItems, drinkId]
             );
         } catch (error) {
             console.error("Error updating cart:", error);
@@ -115,37 +108,26 @@ const JudoApp = () => {
 
     return (
         <div className="judo-app">
-            <div className="drink-list">
-                {drinks.map((drink) => (
-                    <div key={drink.id} className="drink-card">
-                        <img 
-                            src={testImage} 
-                            alt={drink.name} 
-                            className="drink-image" 
-                            onClick={() => goToDetail(drink.id)}
+            {/* 추천 상품 */}
+            {isAuthenticated && <RecommendedDrinks/>}
+            
+            <div className="drink-card-divider"></div>
+            {/* 상품 리스트 */}
+            <div className="drink-container">
+                <h2>전체 상품</h2>
+                <div className="drink-list">
+                    {drinks.map((drink) => (
+                        <DrinkCard 
+                            key={drink.id}
+                            drink={drink}
+                            isFavorite={favorites.includes(drink.id)}  // 찜 상태 체크
+                            isInCart={cartItems.includes(drink.id)}    // 장바구니 상태 체크
+                            onToggleFavorite={() => toggleFavorite(drink.id)}
+                            onToggleCart={() => toggleCart(drink.id)}
+                            onGoToDetail={goToDetail}
                         />
-                        <div className="drink-details">
-                            <h3>{drink.name}</h3>
-                            <p>{drink.type} - {drink.abv}도</p>
-
-                            {/* 찜하기 버튼 */}
-                            <img
-                                src={favorites.includes(drink.id) ? favoriteFilledIcon : favoriteIcon}
-                                alt="찜하기"
-                                className="icon"
-                                onClick={() => toggleFavorite(drink.id)}
-                            />
-
-                            {/* 장바구니 버튼 */}
-                            <img
-                                src={cartIcon}
-                                alt="장바구니"
-                                className="icon"
-                                onClick={() => toggleCart(drink.id)}
-                            />
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>`
             </div>
         </div>
     );
