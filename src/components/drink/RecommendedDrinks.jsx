@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axiosInstance from '../common/AxiosInstance'; // Axios 인스턴스
-import { AuthContext } from '../../contexts/AuthContext'; // 인증 정보
-import testImage from '../../assets/test_image.png'; // 테스트 이미지
+import axiosInstance from '../common/AxiosInstance';
+import { AuthContext } from '../../contexts/AuthContext';
+import testImage from '../../assets/test_image.png';
+
+import favoriteIcon from '../../assets/bookmark_clear.png';
+import favoriteFilledIcon from '../../assets/bookmark_blue.png';
+import cartIcon from '../../assets/cart.png';
+
 import './RecommendedDrinks.css';
 
-const RecommendedDrinks = () => {
+const RecommendedDrinks = ({ onToggleFavorite, onToggleCart, onGoToDetail, favorites }) => {
     const [recommendedDrinks, setRecommendedDrinks] = useState([]);
-    const { isAuthenticated } = useContext(AuthContext); // 인증 상태 확인
-    const [recommendationType, setRecommendationType] = useState('all'); // 추천 기준
+    const { isAuthenticated } = useContext(AuthContext);
+    const [recommendationType, setRecommendationType] = useState('all');
 
     useEffect(() => {
         if (!isAuthenticated) return;
@@ -24,17 +29,16 @@ const RecommendedDrinks = () => {
                 } else {
                     response = await axiosInstance.get('/api/recommendations/all');
                 }
-                
-                setRecommendedDrinks(response.data); // 추천된 음료 리스트 설정
+
+                setRecommendedDrinks(response.data);
             } catch (error) {
                 console.error("Error fetching recommendations:", error);
             }
         };
 
         fetchRecommendations();
-    }, [isAuthenticated, recommendationType]); // 인증 상태나 추천 기준이 변경될 때마다 실행
+    }, [isAuthenticated, recommendationType]);
 
-    // 추천 기준을 변경하는 함수
     const changeRecommendationType = (type) => {
         setRecommendationType(type);
     };
@@ -42,29 +46,28 @@ const RecommendedDrinks = () => {
     return (
         <div className="recommended-drinks">
             <h2>추천 상품</h2>
-            
-            {/* 추천 기준 변경 버튼 */}
+
             <div className="recommendation-buttons">
-                <button 
-                    onClick={() => changeRecommendationType('all')} 
+                <button
+                    onClick={() => changeRecommendationType('all')}
                     className={recommendationType === 'all' ? 'active' : ''}
                 >
                     통합 추천
                 </button>
-                <button 
-                    onClick={() => changeRecommendationType('wishlist')} 
+                <button
+                    onClick={() => changeRecommendationType('wishlist')}
                     className={recommendationType === 'wishlist' ? 'active' : ''}
                 >
                     찜한 상품
                 </button>
-                <button 
-                    onClick={() => changeRecommendationType('cart')} 
+                <button
+                    onClick={() => changeRecommendationType('cart')}
                     className={recommendationType === 'cart' ? 'active' : ''}
                 >
                     장바구니
                 </button>
-                <button 
-                    onClick={() => changeRecommendationType('payment-history')} 
+                <button
+                    onClick={() => changeRecommendationType('payment-history')}
                     className={recommendationType === 'payment-history' ? 'active' : ''}
                 >
                     구매 내역
@@ -75,14 +78,40 @@ const RecommendedDrinks = () => {
                 <div className="recommended-list">
                     {recommendedDrinks.map((drink) => (
                         <div key={drink.id} className="recommended-drink">
-                            <img src={testImage} alt={drink.name} />
-                            <p>{drink.name}</p>
-                            <p>{drink.type}</p>
+                            <img
+                                src={testImage}
+                                alt={drink.name}
+                                className="drink-image"
+                                onClick={() => onGoToDetail(drink.id)}
+                            />
+                            <div className="drink-details">
+                                <h3>{drink.name}</h3>
+                                <p>{drink.type} - {drink.abv}도</p>
+
+                                {/* 찜하기 아이콘 동적 변경 */}
+                                <img
+                                    src={favorites.includes(drink.id) ? favoriteFilledIcon : favoriteIcon} // 상태에 따라 아이콘 변경
+                                    alt="찜하기"
+                                    className="icon"
+                                    onClick={() => onToggleFavorite(drink.id)}
+                                />
+
+                                {/* 장바구니 버튼 */}
+                                <img
+                                    src={cartIcon}
+                                    alt="장바구니"
+                                    className="icon"
+                                    onClick={() => {
+                                        onToggleCart(drink.id);
+                                        alert('장바구니에 추가하였습니다!'); // 알림 메시지 표시
+                                    }}
+                                />
+                            </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <div className='no-result'>추천 상품이 없습니다.</div>
+                <div className="no-result">추천 상품이 없습니다.</div>
             )}
         </div>
     );

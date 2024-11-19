@@ -87,6 +87,11 @@
   text-decoration: none;
   font-size: 1rem;
   transition: background-color 0.3s ease;
+  text-align: left; /* 텍스트를 왼쪽 정렬 */
+  background: none; /* 버튼 기본 스타일 제거 */
+  border: none;
+  cursor: pointer; /* 클릭 가능하도록 커서 변경 */
+  width:100%;
 }
 
 .drawer-link:hover {

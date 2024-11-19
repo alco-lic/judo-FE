@@ -109,7 +109,13 @@ const JudoApp = () => {
     return (
         <div className="judo-app">
             {/* 추천 상품 */}
-            {isAuthenticated && <RecommendedDrinks/>}
+            {isAuthenticated && 
+                <RecommendedDrinks 
+                favorites={favorites}
+                onToggleFavorite={toggleFavorite} 
+                onToggleCart={toggleCart} 
+                onGoToDetail={goToDetail} 
+                />}
             
             <div className="drink-card-divider"></div>
             {/* 상품 리스트 */}
@@ -123,7 +129,10 @@ const JudoApp = () => {
                             isFavorite={favorites.includes(drink.id)}  // 찜 상태 체크
                             isInCart={cartItems.includes(drink.id)}    // 장바구니 상태 체크
                             onToggleFavorite={() => toggleFavorite(drink.id)}
-                            onToggleCart={() => toggleCart(drink.id)}
+                            onClick={() => {
+                                toggleCart(drink.id);
+                                alert('장바구니에 추가하였습니다!'); // 알림 메시지 표시
+                            }}
                             onGoToDetail={goToDetail}
                         />
                     ))}
