@@ -61,11 +61,11 @@ const KnnRecommendations = () => {
         if (selectedTastes.length === 0) return;
 
         try {
-            console.log("Selected Tastes:", selectedTastes);
+            // console.log("Selected Tastes:", selectedTastes);
             const response = await axiosInstance.get('/api/drink-feature/knn/process', {
                 params: { userTasteProfile: selectedTastes.join(' '), k },
             });
-            console.log("Response Data:", response.data.data);
+            // console.log("Response Data:", response.data.data);
             
             // 백엔드 응답 데이터에서 추천 목록 추출
             const recommendationsData = response.data.data?.topKRecommendations || [];
@@ -78,7 +78,7 @@ const KnnRecommendations = () => {
     const fetchKnnProcessData = async () => {
         if (!isAuthenticated || selectedTastes.length === 0) return;
 
-        console.log("recommendations:", recommendations)
+        // console.log("recommendations:", recommendations)
         try {
             const response = await axiosInstance.get('/api/drink-feature/knn/process', {
                 params: { userTasteProfile: selectedTastes.join(' '), k },

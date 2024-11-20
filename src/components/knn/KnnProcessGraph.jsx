@@ -10,7 +10,7 @@ const KnnProcessGraph = ({ data }) => {
         similarity: item.similarity, // 유사도 점수
     }));
 
-    console.log(graphData)
+    // console.log(graphData)
 
     return (
         <BarChart

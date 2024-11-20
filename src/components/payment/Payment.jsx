@@ -51,7 +51,8 @@ const Payment = () => {
 
         try {
             const response = await axiosInstance.post('/api/orders/create', orderData);
-            console.log("백엔드에 결제 내역 저장 성공:", response);
+            // console.log("백엔드에 결제 내역 저장 성공:", response);
+            navigate(`/payment/history`);
         } catch (error) {
             console.error("백엔드 저장 실패:", error);
             alert("결제에 실패했습니다.", error);

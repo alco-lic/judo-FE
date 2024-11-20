@@ -129,7 +129,7 @@ const JudoApp = () => {
                             isFavorite={favorites.includes(drink.id)}  // 찜 상태 체크
                             isInCart={cartItems.includes(drink.id)}    // 장바구니 상태 체크
                             onToggleFavorite={() => toggleFavorite(drink.id)}
-                            onClick={() => {
+                            onToggleCart={() => {
                                 toggleCart(drink.id);
                                 alert('장바구니에 추가하였습니다!'); // 알림 메시지 표시
                             }}
