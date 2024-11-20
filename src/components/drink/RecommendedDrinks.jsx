@@ -29,8 +29,8 @@ const RecommendedDrinks = ({ onToggleFavorite, onToggleCart, onGoToDetail, favor
                 } else {
                     response = await axiosInstance.get('/api/recommendations/all');
                 }
-
-                setRecommendedDrinks(response.data);
+                console.log(response.data)
+                setRecommendedDrinks(response.data.data);
             } catch (error) {
                 console.error("Error fetching recommendations:", error);
             }
@@ -76,7 +76,7 @@ const RecommendedDrinks = ({ onToggleFavorite, onToggleCart, onGoToDetail, favor
 
             {recommendedDrinks.length > 0 ? (
                 <div className="recommended-list">
-                    {recommendedDrinks.map((drink) => (
+                    {recommendedDrinks.slice(0, 10).map((drink) => (
                         <div key={drink.id} className="recommended-drink">
                             <img
                                 src={testImage}

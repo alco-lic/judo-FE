@@ -15,15 +15,19 @@
   "dependencies": {
     "@portone/browser-sdk": "^0.0.10",
     "axios": "^1.7.7",
+    "chart.js": "^4.4.6",
     "date-fns": "^3.6.0",
     "date-fns-tz": "^3.1.3",
     "env": "^0.0.2",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-daum-postcode": "^3.1.3",
     "react-dom": "^18.3.1",
     "react-google-autocomplete": "^2.7.3",
     "react-router-dom": "^6.26.1",
     "react-scripts": "^5.0.1",
+    "rechart": "^0.0.1",
+    "recharts": "^2.13.3",
     "styled-components": "^6.1.13"
   },
   "browserslist": {
@@ -39,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "http-proxy-middleware": "^3.0.1"
   },
   "proxy": "http://localhost:8080"

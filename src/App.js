@@ -10,6 +10,7 @@ import Cart from './components/cart/Cart';
 import Payment from './components/payment/Payment';
 import PaymentHistory from './components/payment/PaymentHistory';
 import Wishlist from './components/wishlist/Wishlist';
+import KnnGraph from './components/knn/KnnRecommendations';
 
 function App() {
     return (
@@ -25,6 +26,8 @@ function App() {
                 
                 <Route path="/drink/:id" element={<DrinkDetail />} />
 
+                <Route path="/knn" element={<ProtectedRoute><KnnGraph /></ProtectedRoute>}/>
+                
                 {/* Cart route, protected */}
                 <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>}/>
                 <Route path="/payment" element={<ProtectedRoute><Payment /> </ProtectedRoute>}/>

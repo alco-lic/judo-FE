@@ -82,3 +82,19 @@
     z-index: 1000;
     font-size: 14px;
 }
+
+/* 세로선 스타일 */
+.vertical-line {
+    border-left: 1px solid #ccc; /* 세로선의 색과 두께 설정 */
+    margin: 0 10px; /* 버튼들 사이에 여백 추가 */
+}
+
+/* 추천 그래프 컨테이너 */
+.graph-container {
+    margin-top: 20px;
+}
+
+/* 추천 상품 목록으로 돌아가기 버튼 */
+.back-to-recommendations {
+    margin-bottom: 20px;
+}

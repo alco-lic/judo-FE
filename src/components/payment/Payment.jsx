@@ -103,11 +103,11 @@ const Payment = () => {
             <div className="cart-items">
                 {cartItems.map(item => (
                     <div key={item.id} className="cart-item">
-                        <p className="cart-item-text">{item.name} - ₩{item.price.toFixed(2)}</p>
+                        <p className="cart-item-text">{item.name} - ${item.price.toFixed(2)}</p>
                     </div>
                 ))}
             </div>
-            <h4 className="total-amount">총액: ₩{parseFloat(totalAmount).toFixed(2)}</h4>
+            <h4 className="total-amount">총액: ${parseFloat(totalAmount).toFixed(2)}</h4>
             <button 
                 onClick={handlePayment} 
                 className="payment-button"

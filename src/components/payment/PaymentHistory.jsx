@@ -36,9 +36,9 @@ const PaymentHistory = () => {
                     {historyItems.map((item, index) => (
                         <div key={index} className="history-item">
                             <h3 className="product-name">{item.product.name}</h3>
-                            <p className="amount">결제 금액: ₩{item.amount.toLocaleString()}</p>
+                            <p className="amount">결제 금액: ${item.amount.toLocaleString()}</p>
                             <p className="transaction-type">거래 타입: {item.transactionType}</p>
-                            <p className="total-amount">총 결제 금액: ₩{item.totalAmount.toLocaleString()}</p>
+                            <p className="total-amount">총 결제 금액: ${item.totalAmount.toLocaleString()}</p>
                             <p className="address">배송 주소: {item.address}</p>
                         </div>
                     ))}

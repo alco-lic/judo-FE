@@ -56,7 +56,7 @@ const DrinkDetail = () => {
             </div>
             <div className="drink-detail__info">
                 <h2 className="drink-detail__name">{drink.name}</h2>
-                <span className="drink-detail__price">{drink.price}원</span>
+                <span className="drink-detail__price">${drink.price}</span>
                 <p className="drink-detail__description">{drink.description}</p>
                 <p className="drink-detail__detailed-description">{drink.detailedDescription}</p>
                 <p className="drink-detail__taste-profile">Taste Profile: {drink.tasteProfile}</p>

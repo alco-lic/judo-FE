@@ -1,0 +1,146 @@
+.knn-recommendations {
+    padding: 30px;
+    padding-bottom: 50px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.knn-input-section {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+
+.selected-tastes-container {
+    margin-top: 20px;
+}
+
+.selected-tastes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.selected-tastes-list li {
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.taste-buttons-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.taste-button {
+    padding: 12px 18px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.taste-button.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.taste-button:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.recommendations-container {
+    margin-top: 30px;
+}
+
+.recommended-drinks-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.recommended-drink-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.recommended-drink-item:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.drink-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    margin: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+}
+
+.divider {
+    height: 1px;
+    background-color: #ddd;
+    margin: 35px 0;
+}
+
+.process-data-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.similarity-check-button {
+    padding: 12px 24px;
+    background-color: #007bff; /* 기본 파란색 배경 */
+    color: #fff; /* 흰색 텍스트 */
+    font-size: 16px; /* 버튼 텍스트 크기 */
+    font-weight: bold; /* 텍스트 굵기 */
+    border: none; /* 테두리 제거 */
+    border-radius: 8px; /* 둥근 모서리 */
+    cursor: pointer; /* 클릭 가능한 커서 */
+    transition: background-color 0.3s, transform 0.2s; /* 부드러운 색상 및 크기 전환 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+}
+
+.similarity-check-button:hover {
+    background-color: #0056b3; /* 호버 시 더 짙은 파란색 */
+    transform: scale(1.05); /* 호버 시 약간 커짐 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 강화 */
+}
+
+.similarity-check-button:active {
+    background-color: #004494; /* 클릭 시 더 어두운 파란색 */
+    transform: scale(0.95); /* 클릭 시 약간 작아짐 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 클릭 시 그림자 약화 */
+}

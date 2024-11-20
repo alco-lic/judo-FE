@@ -41,7 +41,10 @@ const NavBar = () => {
         <div className="navbar-menu">
           {isAuthenticated ? (
             <>
+              <Link to="/knn" className="navbar-link">Keyword</Link>
+              |
               <Link to="/wishlist" className="navbar-link">Wishlist</Link>
+              |
               <Link to="/cart" className="navbar-link">Cart</Link>
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -57,12 +60,12 @@ const NavBar = () => {
                   결제 내역 보기
                 </button>
                 <div className="navbar-divider"></div>
-                <button
+                {/* <button
                   className="drawer-link"
                   onClick={() => handleLinkClick('/profile')}
                 >
                   내 정보 보기
-                </button>
+                </button> */}
                 <button
                   className="drawer-link"
                   onClick={() => {
