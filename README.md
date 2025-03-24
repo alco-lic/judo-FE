@@ -22,7 +22,7 @@ Spring Boot와 Kotlin을 활용하여 백엔드를 개발하고, React를 통해
   <br>
   <strong>조승빈</strong>
   <br>
-  Backend & Frontend 개발
+  Frontend 개발
   <br>
   🔗 <a href="https://github.com/vkflco08">GitHub 프로필</a>
 </div>
@@ -32,7 +32,7 @@ Spring Boot와 Kotlin을 활용하여 백엔드를 개발하고, React를 통해
 ## 🚀 프로젝트 개요
 - **프레임워크**: React (JSX)
 - **프론트엔드 개발 환경**: `React 18`, `react-scripts 5.0.1`
-- **배포 방식**: 개인 리눅스 서버에서 Jenkins를 활용하여 Nginx 컨테이너를 배포  
+- **배포 방식**: 개인 리눅스 서버 
 - **백엔드 GitHub**: [BE GitHub Repository](https://github.com/alco-lic/judo-BE)
 
 ---
